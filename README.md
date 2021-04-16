@@ -9,5 +9,3 @@ University of São Paulo
 Professor Mario de Castro Andrade Filho
 
 2021.1
-
-l
