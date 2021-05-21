@@ -9,6 +9,8 @@ output:
     df_print: kable
     highlight: tango
     latex_engine: xelatex
+    keep_tex: yes
+  fig_caption: yes
   html_document:
     highlight: textmate
 header-includes:
@@ -20,7 +22,7 @@ always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, error = FALSE)
 set.seed(2021)
 
 library(tidyverse)
@@ -283,7 +285,7 @@ c <- po_sample(r, lambda, 75)
 d <- po_sample(r, lambda, 100)
 ```
 
-Na tabela subsequente, é possível notar a tendência esperada, conforme o o tamanho $n$ da amostra aumenta, mais próximo de 95% fica a taxa de aceitação de $H_0$. Este resultado é esperado pois, pela definição do teste de hipótese estatístico, ao fixarmos $\alpha = 0.05$ espera-se que em 95% dos casos testados sejam em direção a aceitação de $H_0$ se a suposição de normalidade dos dados realmente é válida.
+Na tabela subsequente, é possível notar a tendência esperada, conforme o o tamanho $n$ da amostra aumenta, mais próximo de 95\% fica a taxa de aceitação de $H_0$. Este resultado é esperado pois, pela definição do teste de hipótese estatístico, ao fixarmos $\alpha = 0.05$ espera-se que em 95\% dos casos testados sejam em direção a aceitação de $H_0$ se a suposição de normalidade dos dados realmente é válida.
 
 ```{r}
 freqa <- table(a$aceita) * 100 / sum(table(a$aceita))
@@ -293,13 +295,13 @@ freqd <- table(d$aceita) * 100 / sum(table(d$aceita))
 
 tabela <- rbind("Amostra n = 10" = freqa, "Amostra n = 30" = freqb,
                 "Amostra n = 75" = freqc, "Amostra n = 100" = freqd)
-tabela_1 <- as.data.frame(tabela)
+tabela_1 <- data.frame(tabela)
 
 knitr::kable(tabela_1, booktabs = T, align = "c",
              caption = "Tabela de Erro Tipo I (em %)",
-             col.names = c("Rejeita Hipótese Nula", " Não Rejeita Hipótese Nula"),
-             longtable = T) %>%
-    kable_styling(position = "center")
+             col.names = c("Rejeita Hipótese Nula", "Não Rejeita Hipótese Nula"),
+             format = "latex", escape = F) %>%
+kable_styling(position = "center", latex_options = c("hold_position"))
 ```
 
 Agora, partindo para análise do poder, notamos outro resultado esperado na tabela seguinte, a tendência apresentada é apresentada pelo gráfico da seguinte forma: conforme cresce a diferença entre o valor testado do paramêtro ($\lambda = 2$) e/ou cresce o tamanho da amostra maior é o poder do teste, ou seja, torna-se cada vez mais sensível aos desvios do valor de $\hat{\lambda}_{EMV}$.
@@ -317,6 +319,6 @@ knitr::kable(df2, booktabs = T, align = "c",
                            paste("$\\lambda =$", p[3]),
                            paste("$\\lambda =$", p[4]),
                            paste("$\\lambda =$", p[5])),
-             longtable = T) %>%
-    kable_styling(position = "center")
+             format = "latex", escape = F) %>%
+kable_styling(position = "center", latex_options = c("hold_position"))
 ```
