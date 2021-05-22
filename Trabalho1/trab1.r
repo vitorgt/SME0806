@@ -212,7 +212,7 @@ knitr::kable(df2, align = "c",
 kable_styling(position = "center")
 
 library("rmarkdown")
-render("trab1.rmd", "pdf_document")
+render("Trabalho1/trab1.Rmd", "pdf_document")
 
 update.packages(ask = FALSE, checkBuilt = TRUE)
 tinytex::tlmgr_update()

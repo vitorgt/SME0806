@@ -29,8 +29,8 @@
 }
 \usepackage{hyperref}
 \hypersetup{
-            pdftitle={Exercício Aula 2},
-            pdfauthor={Diego G. de Paulo (10857040); Vitor Gratiere Torres (10284952)},
+            pdftitle={Trabalho 1 - SME0806 - Estatística Computacional},
+            pdfauthor={Diego G. de Paulo (10857040); Caio Henrique M. Schiavo (11810602); Vitor Gratiere Torres (10284952); Douglas Sudré Souza (10733820); Bruno H.da S Justino (11031621)},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -106,20 +106,71 @@
 \usepackage{enumerate}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\renewcommand{\and}{\\}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
 
-\title{Exercício Aula 2}
-\author{Diego G. de Paulo (10857040) \and Vitor Gratiere Torres (10284952)}
-\date{27/04/2020}
+\title{Trabalho 1 - SME0806 - Estatística Computacional}
+\providecommand{\subtitle}[1]{}
+\subtitle{Universidade de São Paulo}
+\author{Diego G. de Paulo (10857040) \and Caio Henrique M. Schiavo (11810602) \and Vitor Gratiere Torres (10284952) \and Douglas Sudré Souza (10733820) \and Bruno H.da S Justino (11031621)}
+\date{21/05/2021}
 
 \begin{document}
 \maketitle
 
-\hypertarget{ex-1}{%
-\section{EX 1}\label{ex-1}}
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\newpage
 
-Motivação: O intuito deste exercício é gerar uma amostra
-pseudo-aleatória de \(f(x)\) dada por
-\(f(x) \propto q(x) = e^{\frac{-|x|^3}{3}}\).
+\hypertarget{introduuxe7uxe3o}{%
+\section{Introdução}\label{introduuxe7uxe3o}}
+
+Após a apresentação e explicação do conteúdo da disciplina, foi
+solicitado, pelo professor, um trabalho com base em algoritmos de
+amostras pseudo-aleatórias (Método da Transformação e Método da
+Rejeição) e a aplicação do Método de Monte Carlo para estimar, por
+simulações, parâmetros e funções de variáveis aleatórias.
+
+A simulação de um modelo probabilístico consiste na geração de
+mecanismos estocásticos e, em seguida, na observação do fluxo resultante
+do modelo ao longo do tempo. No Método de Monte Carlo, nome originado
+pelo uso da aleatoriedade e da natureza repetitiva das atividades
+realizadas em cassinos em Monte Carlo, Mônaco, representa-se a solução
+de um problema como um parâmetro de uma população hipotética e, que usa
+uma sequência aleatória de números para construir uma amostra da
+população da qual estimativas estatísticas desse parâmetro possam ser
+obtidas. Halton (1970).
+
+Neste trabalho, também nos deparamos com distribuições do tipo
+Log-Normal, caracterizada pela propriedade que os logaritmos dos valores
+seguem uma distribuição normal e pela forte assimetria positiva, dada
+pela ocorrência de uma grande quantidade de valores baixos e uma pequena
+quantidade de valores altos a muito altos. (Koch e Link, 1970, p.~213)
+
+\newpage
+
+\hypertarget{exercuxedcio-1}{%
+\section{Exercício 1}\label{exercuxedcio-1}}
+
+\hypertarget{motivauxe7uxe3o}{%
+\subsection{Motivação}\label{motivauxe7uxe3o}}
+
+~
+
+O intuito deste exercício é gerar uma amostra pseudo-aleatória de
+\(f(x)\) dada por \(f(x) \propto q(x) = e^{\frac{-|x|^3}{3}}\).
+
+\hypertarget{metodologia}{%
+\subsection{Metodologia}\label{metodologia}}
+
+~
 
 Para gerar tal amostra, foi selecionado o método da rejeição. Este
 método é descrito por:
@@ -130,16 +181,21 @@ por \(g(y)\) amostrável. Além disso, há a suposição:
 \begin{itemize}
 \tightlist
 \item
-  \(\frac{f(x)}{g(x)} \leq m\), \(1 \leq m < \infty\)
+  \(\frac{f(x)}{g(x)} \leq M\), \(1 \leq M < \infty\)
 \end{itemize}
 
 E, por recomendação, toma-se
-\(m = max_x\left( \frac{f(x)}{g(x)} \right)\)
+\(M = max_x\left( \frac{f(x)}{g(x)} \right)\)
+
+\hypertarget{resoluuxe7uxe3o}{%
+\subsection{Resolução}\label{resoluuxe7uxe3o}}
+
+~
 
 Para o exercício em questão, seleciona-se \(Y\), tal que
 \(Y \sim Laplace(0,1)\) que tem a função de probabilidade dada por:
-\(g(y) = \frac{1}{2} e^{-|y|}, y \in \mathbb{R}\). Para obter m, tem-se:
-\[m = max_x\left( \frac{f(x)}{g(x)} \right) \iff \frac{d\left(\frac{e^{\frac{-|x|^3}{3}}}{\frac{1}{2} e^{-|x|}}  \right)}{dx} = 0\]
+\(g(y) = \frac{1}{2} e^{-|y|}, y \in \mathbb{R}\). Para obter M, tem-se:
+\[M = max_x\left( \frac{f(x)}{g(x)} \right) \iff \frac{d\left(\frac{e^{\frac{-|x|^3}{3}}}{\frac{1}{2} e^{-|x|}}  \right)}{dx} = 0\]
 Calculando a derivada de \(\frac{f(x)}{g(x)}\):
 
 \[
@@ -156,7 +212,7 @@ para esta equação tem-se: \(x = -1, 0, 1\), afim de não postergar o
 cálculo e partir para o gerador de amostra pseudo-aleatória,
 seleciona-se, dos pontos críticos, apenas os pontos de máximo em
 \(x = -1, 1\). Sendo assim obtém-se:
-\(m = max_x\left( \frac{f(x)}{g(x)} \right) = 2e^{\frac{2}{3}}\).
+\(M = max_x\left( \frac{f(x)}{g(x)} \right) = 2e^{\frac{2}{3}}\).
 Finalizada a etapa de seleção das variáveis, segue a apliacação das
 etapas:
 
@@ -167,19 +223,76 @@ etapas:
 \item
   2º: Gerar \(u \sim U(0,1)\)
 \item
-  3º: Se \(u \leq \frac{f(y)}{mg(y)}\) faça \(x = y\), Caso contrário
+  3º: Se \(u \leq \frac{f(y)}{Mg(y)}\) faça \(x = y\), Caso contrário
   retornar ao primeiro passo.
 \item
   4º: Repita os passos anteriores até obter n observações necessárias.
 \end{itemize}
 
+\hypertarget{gruxe1ficos}{%
+\subsection{Gráficos}\label{gruxe1ficos}}
+
+~
+
 Abaixo, para melhor visualização dos resultados obtidos matematicamente,
 estão exibidos os gráficos das funções \(f(x)\), \(g(y)\), assim como os
 gráficos de \(\frac{f(x)}{g(x)}\), para que os pontos critícos possam
-ser observados, e o gráfico sobreposto de \(f(x)\) e \(mg(x)\), para
-notar o envolapamento de \(f(x)\) por \(mg(x)\).
+ser observados, e o gráfico sobreposto de \(f(x)\) e \(Mg(x)\), para
+notar o envolapamento de \(f(x)\) por \(Mg(x)\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gx <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+
+  \KeywordTok{return}\NormalTok{(}\FloatTok{0.5} \OperatorTok{*}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\KeywordTok{abs}\NormalTok{(x)))}
+
+\NormalTok{\}}
+
+\NormalTok{fx <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(}\KeywordTok{abs}\NormalTok{(x)}\OperatorTok{^}\DecValTok{3}\NormalTok{)}\OperatorTok{/}\DecValTok{3}\NormalTok{))}
+
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fgx <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{fx}\NormalTok{(x)}\OperatorTok{/}\KeywordTok{gx}\NormalTok{(x))}
+
+\NormalTok{\}}
+
+\NormalTok{M <-}\StringTok{ }\KeywordTok{fgx}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+
+
+
+\NormalTok{M_gx <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, M) \{}
+  \KeywordTok{return}\NormalTok{(M }\OperatorTok{*}\StringTok{ }\KeywordTok{gx}\NormalTok{(x))}
+\NormalTok{\}}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{curve}\NormalTok{(fx, }\DecValTok{-5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{"x"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"f(x)"}\NormalTok{,}
+      \DataTypeTok{col =} \StringTok{"darkgrey"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Gráfico de f(x)"}\NormalTok{)}
+
+\KeywordTok{curve}\NormalTok{(gx, }\DecValTok{-5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{"y"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"g(y)"}\NormalTok{,}
+      \DataTypeTok{col =} \StringTok{"darkgrey"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Gráfico de g(y)"}\NormalTok{)}
+
+\KeywordTok{curve}\NormalTok{(fgx, }\DecValTok{-4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"f(x)/g(x)"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Gráfico de f(x)/g(x)"}\NormalTok{)}
+\KeywordTok{points}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(M, M), }\DataTypeTok{pch =} \DecValTok{20}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =}\NormalTok{ M, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\KeywordTok{segments}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(M, M), }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{M_gx}\NormalTok{(x, M), }\DecValTok{-5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"f(x) e M*g(x)"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Gráfico de f(x) e Mg(x)"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{fx}\NormalTok{(x), }\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"f(x)"}\NormalTok{, }\StringTok{"M*g(x)"}\NormalTok{), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"red"}\NormalTok{),}
+\DataTypeTok{lty =} \DecValTok{1}\NormalTok{, }\DataTypeTok{bty =} \StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \includegraphics{trab1_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\newpage
 
 A seguir, é possível observar histogramas e boxplots para cada tamanho
 de amostra \(n = (50, 100, 400)\) das amostras pseudo-aleatórias geradas
@@ -187,17 +300,160 @@ da \(f(x)\). É possível notar, observando o gráfico, que a medida em que
 se aumenta o tamanho da amostra mais próximo da simetria observada na
 função, dispõe-se a amostra.
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gerador <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(n)\{}
+
+\NormalTok{  nger <-}\StringTok{ }\NormalTok{n0 <-}\StringTok{ }\DecValTok{0}
+\NormalTok{  ax <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+  \ControlFlowTok{while}\NormalTok{ (n0 }\OperatorTok{<}\StringTok{ }\NormalTok{n) \{}
+\NormalTok{    rej <-}\StringTok{ }\OtherTok{TRUE}
+    \ControlFlowTok{while}\NormalTok{(rej) \{}
+\NormalTok{      nger <-}\StringTok{ }\NormalTok{nger }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{      u <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{      y <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(u }\OperatorTok{<=}\StringTok{ }\FloatTok{0.5}\NormalTok{, }\KeywordTok{log}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{u), }\OperatorTok{-}\KeywordTok{log}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{u)))}
+
+      \ControlFlowTok{if}\NormalTok{ (M }\OperatorTok{*}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{) }\OperatorTok{<=}\StringTok{ }\KeywordTok{fgx}\NormalTok{(y)) \{}
+\NormalTok{        n0 <-}\StringTok{ }\NormalTok{n0 }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{        ax[n0] <-}\StringTok{ }\NormalTok{y}
+\NormalTok{        rej <-}\StringTok{ }\OtherTok{FALSE}
+\NormalTok{      \}}
+\NormalTok{    \}}
+\NormalTok{  \}}
+
+\NormalTok{  result <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{sample =}\NormalTok{ ax, }\DataTypeTok{n_gerado =}\NormalTok{ nger)}
+  \KeywordTok{return}\NormalTok{(result)}
+
+\NormalTok{\}}
+
+\NormalTok{amostra_gerada_}\DecValTok{50}\NormalTok{ <-}\StringTok{ }\KeywordTok{gerador}\NormalTok{(}\DecValTok{50}\NormalTok{)}
+\NormalTok{ax_}\DecValTok{50}\NormalTok{ <-}\StringTok{ }\NormalTok{amostra_gerada_}\DecValTok{50}\OperatorTok{$}\NormalTok{sample}
+
+\NormalTok{amostra_gerada_}\DecValTok{100}\NormalTok{ <-}\StringTok{ }\KeywordTok{gerador}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{ax_}\DecValTok{100}\NormalTok{ <-}\StringTok{ }\NormalTok{amostra_gerada_}\DecValTok{100}\OperatorTok{$}\NormalTok{sample}
+
+\NormalTok{amostra_gerada_}\DecValTok{400}\NormalTok{ <-}\StringTok{ }\KeywordTok{gerador}\NormalTok{(}\DecValTok{400}\NormalTok{)}
+\NormalTok{ax_}\DecValTok{400}\NormalTok{ <-}\StringTok{ }\NormalTok{amostra_gerada_}\DecValTok{400}\OperatorTok{$}\NormalTok{sample}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(ax_}\DecValTok{50}\NormalTok{, }\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma da amostra n = 50"}\NormalTok{,}
+     \DataTypeTok{xlab =} \StringTok{"x"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidade"}\NormalTok{,}
+     \DataTypeTok{col=}\StringTok{"orange"}\NormalTok{, }\DataTypeTok{border=}\StringTok{"brown"}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(ax_}\DecValTok{100}\NormalTok{, }\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma da amostra n = 100"}\NormalTok{,}
+     \DataTypeTok{xlab =} \StringTok{"x"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidade"}\NormalTok{,}
+     \DataTypeTok{col=}\StringTok{"orange"}\NormalTok{, }\DataTypeTok{border=}\StringTok{"brown"}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(ax_}\DecValTok{400}\NormalTok{, }\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma da amostra n = 400"}\NormalTok{,}
+     \DataTypeTok{xlab =} \StringTok{"x"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidade"}\NormalTok{,}
+     \DataTypeTok{col=}\StringTok{"orange"}\NormalTok{, }\DataTypeTok{border=}\StringTok{"brown"}\NormalTok{)}
+
+\NormalTok{amostra <-}\StringTok{ }\KeywordTok{c}\NormalTok{(ax_}\DecValTok{50}\NormalTok{, ax_}\DecValTok{100}\NormalTok{, ax_}\DecValTok{400}\NormalTok{)}
+\NormalTok{tamanho <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{50}\NormalTok{, }\KeywordTok{length}\NormalTok{(ax_}\DecValTok{50}\NormalTok{)),}
+             \KeywordTok{rep}\NormalTok{(}\DecValTok{100}\NormalTok{, }\KeywordTok{length}\NormalTok{(ax_}\DecValTok{100}\NormalTok{)),}
+             \KeywordTok{rep}\NormalTok{(}\DecValTok{400}\NormalTok{, }\KeywordTok{length}\NormalTok{(ax_}\DecValTok{400}\NormalTok{)))}
+
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(amostra, tamanho)}
+
+\KeywordTok{boxplot}\NormalTok{(amostra}\OperatorTok{~}\NormalTok{tamanho,}
+\DataTypeTok{data=}\NormalTok{df,}
+\DataTypeTok{main=}\StringTok{"Diferentes Boxplots para cada tamanho de amostra"}\NormalTok{,}
+\DataTypeTok{xlab=}\StringTok{"Tamanho da amostra"}\NormalTok{,}
+\DataTypeTok{ylab=}\StringTok{"Observações"}\NormalTok{,}
+\DataTypeTok{col=}\StringTok{"orange"}\NormalTok{,}
+\DataTypeTok{border=}\StringTok{"brown"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \includegraphics{trab1_files/figure-latex/unnamed-chunk-3-1.pdf}
 
-\hypertarget{ex-2}{%
-\section{EX 2}\label{ex-2}}
+\newpage
 
-\hypertarget{ex-3}{%
-\section{EX 3}\label{ex-3}}
+\hypertarget{exercuxedcio-2}{%
+\section{Exercício 2}\label{exercuxedcio-2}}
 
-Motivação: Neste presente exercício busca-se trabalhar com a
-distribuição poisson e estudar os Erros do Tipo I e II para esta
-distribuição utilizando o Método de Monte Carlo.
+\hypertarget{motivauxe7uxe3o-1}{%
+\subsection{Motivação}\label{motivauxe7uxe3o-1}}
+
+Uma aproximação pode ser obtida utilizando simulações de amostras de (X,
+Y). Vamos gerar observações do par (X, Y) com as expressões que estão no
+enunciado.
+
+\hypertarget{resoluuxe7uxe3o-1}{%
+\subsection{Resolução}\label{resoluuxe7uxe3o-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{R <-}\StringTok{ }\DecValTok{10000}
+\NormalTok{S <-}\StringTok{ }\DecValTok{200}
+
+\NormalTok{mean_hat <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{R)\{}
+\NormalTok{  x <-}\StringTok{ }\KeywordTok{rlnorm}\NormalTok{(S,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{  erro <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(S,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{  y <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\DecValTok{9}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\KeywordTok{log}\NormalTok{(x)}\OperatorTok{+}\NormalTok{erro)}
+\NormalTok{  mean_hat[i] <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(y}\OperatorTok{/}\NormalTok{x)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Estimação Pontual
+
+Na estimação pontual desejamos encontrar um único valor numérico que
+esteja bastante próximo do verdadeiro valor do parâmetro.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(mean_hat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 99854.96
+\end{verbatim}
+
+Estimação Intervalar
+
+Embora os estimadores pontuais especifiquem um único valor para o
+parâmetro, diferentes amostras levam a diferentes estimativas, pois o
+estimador é uma função de uma amostra aleatória. E, estimar um parâmetro
+através de um único valor não permite julgar a magnitude do erro que
+podemos estar cometendo.
+
+Daí, surge a ideia de contruir um intervalo de valores que tenha uma
+alta probabilidade de conter o verdadeiro valor do parâmetro (denominado
+intervalo de confiança).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{quantile}\NormalTok{(mean_hat, }\KeywordTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      2.5%     97.5%
+##  44054.94 255157.93
+\end{verbatim}
+
+Poderiamos resolver de diversas outras formas, de maneira que, com o
+método utilizado, estamos 95\% confiantes de que o intervalo de 43703.07
+a 252929.58 realmente contém o verdadeiro valor de p.~
+
+\newpage
+
+\hypertarget{exercuxedcio-3}{%
+\section{Exercício 3}\label{exercuxedcio-3}}
+
+\hypertarget{motivauxe7uxe3o-2}{%
+\subsection{Motivação}\label{motivauxe7uxe3o-2}}
+
+~
+
+Neste presente exercício busca-se trabalhar com a distribuição poisson e
+estudar os Erros do Tipo I e II para esta distribuição utilizando o
+Método de Monte Carlo.
+
+\hypertarget{resoluuxe7uxe3o-2}{%
+\subsection{Resolução}\label{resoluuxe7uxe3o-2}}
 
 Para facilitar a compreensão, será indicado alguns aspectos importantes
 de tal distribuição. Dado \(X \sim Poisson(\lambda)\), \(X_1, ..., X_n\)
@@ -239,23 +495,22 @@ efiência do estimador de máxima verossimilhança.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{r <-}\StringTok{ }\DecValTok{1000}
+\NormalTok{R <-}\StringTok{ }\DecValTok{10000}
 \NormalTok{lambda <-}\StringTok{ }\DecValTok{2}
-\NormalTok{po_sample <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(r, lambda, n) \{}
+\NormalTok{po_sample <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(R, lambda, n)\{}
 
 \NormalTok{  pvalue <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
 \NormalTok{  aceptance <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
 \NormalTok{  medias_v <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\NormalTok{  poder_dif <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{2.2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DataTypeTok{length.out =} \DecValTok{5}\NormalTok{) }\OperatorTok{-}\StringTok{ }\DecValTok{2}
+\NormalTok{  poder_dif <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{2.2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DataTypeTok{length.out =} \DecValTok{5}\NormalTok{)}\OperatorTok{-}\DecValTok{2}
 \NormalTok{  power_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
 
-
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{r) \{}
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{R) \{}
 
 \NormalTok{    sample_p <-}\StringTok{ }\KeywordTok{rpois}\NormalTok{(n, lambda)}
 \NormalTok{    media <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(sample_p)}
 
-\NormalTok{    p_value <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(media, }\DataTypeTok{mean =}\NormalTok{ lambda, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{n }\OperatorTok{*}\StringTok{ }\NormalTok{lambda))}
+\NormalTok{    p_value <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(media, }\DataTypeTok{mean =}\NormalTok{ lambda, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{n}\OperatorTok{*}\NormalTok{lambda))}
 \NormalTok{    pvalue[i] <-}\StringTok{ }\NormalTok{p_value}
 
 \NormalTok{    medias_v[i] <-}\StringTok{ }\NormalTok{media}
@@ -263,58 +518,68 @@ efiência do estimador de máxima verossimilhança.
     \ControlFlowTok{if}\NormalTok{ (pvalue[i] }\OperatorTok{>=}\StringTok{ }\FloatTok{0.05}\NormalTok{) \{}
 \NormalTok{      aceptance[i] <-}\StringTok{ }\DecValTok{1}
 \NormalTok{    \}}
-    \ControlFlowTok{else}\NormalTok{ \{}
+    \ControlFlowTok{else}\NormalTok{\{}
 \NormalTok{      aceptance[i] <-}\StringTok{ }\DecValTok{0}
 \NormalTok{    \}}
 \NormalTok{  \}}
 
 \NormalTok{  poder_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{power.t.test}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ n, }\DataTypeTok{delta =}\NormalTok{ poder_dif[}\DecValTok{1}\NormalTok{],}
-                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{n }\OperatorTok{*}\StringTok{ }\NormalTok{lambda),}
+                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{n}\OperatorTok{*}\NormalTok{lambda),}
                           \DataTypeTok{sig.level =} \FloatTok{.05}\NormalTok{,}
                           \DataTypeTok{alternative =} \StringTok{"two.sided"}\NormalTok{,}
                           \DataTypeTok{type =} \StringTok{"one.sample"}\NormalTok{)}
 \NormalTok{  power_}\DecValTok{1}\NormalTok{[}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(poder_}\DecValTok{1}\NormalTok{[}\DecValTok{5}\NormalTok{])))}
 
 \NormalTok{  poder_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{power.t.test}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ n, }\DataTypeTok{delta =}\NormalTok{ poder_dif[}\DecValTok{2}\NormalTok{],}
-                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{n }\OperatorTok{*}\StringTok{ }\NormalTok{lambda),}
+                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{n}\OperatorTok{*}\NormalTok{lambda),}
                           \DataTypeTok{sig.level =} \FloatTok{.05}\NormalTok{,}
                           \DataTypeTok{alternative =} \StringTok{"one.sided"}\NormalTok{,}
                           \DataTypeTok{type =} \StringTok{"one.sample"}\NormalTok{)}
 \NormalTok{  power_}\DecValTok{1}\NormalTok{[}\DecValTok{2}\NormalTok{] <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(poder_}\DecValTok{2}\NormalTok{[}\DecValTok{5}\NormalTok{]))}
 
 \NormalTok{  poder_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\KeywordTok{power.t.test}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ n, }\DataTypeTok{delta =}\NormalTok{ poder_dif[}\DecValTok{3}\NormalTok{],}
-                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{n }\OperatorTok{*}\StringTok{ }\NormalTok{lambda),}
+                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{n}\OperatorTok{*}\NormalTok{lambda),}
                           \DataTypeTok{sig.level =} \FloatTok{.05}\NormalTok{,}
                           \DataTypeTok{alternative =} \StringTok{"one.sided"}\NormalTok{,}
                           \DataTypeTok{type =} \StringTok{"one.sample"}\NormalTok{)}
 \NormalTok{  power_}\DecValTok{1}\NormalTok{[}\DecValTok{3}\NormalTok{] <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(poder_}\DecValTok{3}\NormalTok{[}\DecValTok{5}\NormalTok{]))}
 
 \NormalTok{  poder_}\DecValTok{4}\NormalTok{ <-}\StringTok{ }\KeywordTok{power.t.test}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ n, }\DataTypeTok{delta =}\NormalTok{ poder_dif[}\DecValTok{4}\NormalTok{],}
-                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{n }\OperatorTok{*}\StringTok{ }\NormalTok{lambda),}
+                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{n}\OperatorTok{*}\NormalTok{lambda),}
                           \DataTypeTok{sig.level =} \FloatTok{.05}\NormalTok{,}
                           \DataTypeTok{alternative =} \StringTok{"one.sided"}\NormalTok{,}
                           \DataTypeTok{type =} \StringTok{"one.sample"}\NormalTok{)}
 \NormalTok{  power_}\DecValTok{1}\NormalTok{[}\DecValTok{4}\NormalTok{] <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(poder_}\DecValTok{4}\NormalTok{[}\DecValTok{5}\NormalTok{]))}
 
 \NormalTok{  poder_}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\KeywordTok{power.t.test}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ n, }\DataTypeTok{delta =}\NormalTok{ poder_dif[}\DecValTok{5}\NormalTok{],}
-                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1} \OperatorTok{/}\StringTok{ }\NormalTok{n }\OperatorTok{*}\StringTok{ }\NormalTok{lambda),}
+                          \DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{n}\OperatorTok{*}\NormalTok{lambda),}
                           \DataTypeTok{sig.level =} \FloatTok{.05}\NormalTok{,}
                           \DataTypeTok{alternative =} \StringTok{"one.sided"}\NormalTok{,}
                           \DataTypeTok{type =} \StringTok{"one.sample"}\NormalTok{)}
 \NormalTok{  power_}\DecValTok{1}\NormalTok{[}\DecValTok{5}\NormalTok{] <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(poder_}\DecValTok{5}\NormalTok{[}\DecValTok{5}\NormalTok{]))}
 
+
+
+
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{pvalor =}\NormalTok{ pvalue, }\DataTypeTok{aceita =}\NormalTok{ aceptance,}
-                  \DataTypeTok{media =}\NormalTok{ medias_v, }\DataTypeTok{poder =}\NormalTok{ power_}\DecValTok{1}\NormalTok{)}
+               \DataTypeTok{media =}\NormalTok{ medias_v, }\DataTypeTok{poder =}\NormalTok{ power_}\DecValTok{1}\NormalTok{)}
 
   \KeywordTok{return}\NormalTok{(results)}
+
 \NormalTok{\}}
 
-\NormalTok{a <-}\StringTok{ }\KeywordTok{po_sample}\NormalTok{(r, lambda, }\DecValTok{10}\NormalTok{)}
-\NormalTok{b <-}\StringTok{ }\KeywordTok{po_sample}\NormalTok{(r, lambda, }\DecValTok{30}\NormalTok{)}
-\NormalTok{c <-}\StringTok{ }\KeywordTok{po_sample}\NormalTok{(r, lambda, }\DecValTok{75}\NormalTok{)}
-\NormalTok{d <-}\StringTok{ }\KeywordTok{po_sample}\NormalTok{(r, lambda, }\DecValTok{100}\NormalTok{)}
+
+\NormalTok{a <-}\StringTok{ }\KeywordTok{po_sample}\NormalTok{(R, lambda, }\DecValTok{10}\NormalTok{)}
+\NormalTok{b <-}\StringTok{ }\KeywordTok{po_sample}\NormalTok{(R, lambda, }\DecValTok{30}\NormalTok{)}
+\NormalTok{c <-}\StringTok{ }\KeywordTok{po_sample}\NormalTok{(R, lambda, }\DecValTok{75}\NormalTok{)}
+\NormalTok{d <-}\StringTok{ }\KeywordTok{po_sample}\NormalTok{(R, lambda, }\DecValTok{100}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{tabelas}{%
+\subsection{Tabelas}\label{tabelas}}
+
+~
 
 Na tabela subsequente, é possível notar a tendência esperada, conforme o
 o tamanho \(n\) da amostra aumenta, mais próximo de 95\% fica a taxa de
@@ -337,24 +602,24 @@ se a suposição de normalidade dos dados realmente é válida.
 \NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(tabela_}\DecValTok{1}\NormalTok{, }\DataTypeTok{booktabs =}\NormalTok{ T, }\DataTypeTok{align =} \StringTok{"c"}\NormalTok{,}
              \DataTypeTok{caption =} \StringTok{"Tabela de Erro Tipo I (em %)"}\NormalTok{,}
              \DataTypeTok{col.names =} \KeywordTok{c}\NormalTok{(}\StringTok{"Rejeita Hipótese Nula"}\NormalTok{, }\StringTok{"Não Rejeita Hipótese Nula"}\NormalTok{),}
-             \DataTypeTok{format =} \StringTok{"latex"}\NormalTok{, }\DataTypeTok{escape =}\NormalTok{ T) }\OperatorTok{%>%}
+             \DataTypeTok{format =} \StringTok{"latex"}\NormalTok{, }\DataTypeTok{escape =}\NormalTok{ F) }\OperatorTok{%>%}
 \KeywordTok{kable_styling}\NormalTok{(}\DataTypeTok{position =} \StringTok{"center"}\NormalTok{, }\DataTypeTok{latex_options =} \KeywordTok{c}\NormalTok{(}\StringTok{"hold_position"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \textbackslash{}begin\{table\}{[}!h{]}
 
-\textbackslash{}caption\{\label{tab:unnamed-chunk-6}Tabela de Erro Tipo
+\textbackslash{}caption\{\label{tab:unnamed-chunk-8}Tabela de Erro Tipo
 I (em \%)\} \centering
 
 \begin{tabular}[t]{lcc}
 \toprule
   & Rejeita Hipótese Nula & Não Rejeita Hipótese Nula\\
 \midrule
-Amostra n = 10 & 3.1 & 96.9\\
-Amostra n = 30 & 5.1 & 94.9\\
-Amostra n = 75 & 4.1 & 95.9\\
-Amostra n = 100 & 4.9 & 95.1\\
+Amostra n = 10 & 4.07 & 95.93\\
+Amostra n = 30 & 4.93 & 95.07\\
+Amostra n = 75 & 3.79 & 96.21\\
+Amostra n = 100 & 4.76 & 95.24\\
 \bottomrule
 \end{tabular}
 
@@ -388,7 +653,7 @@ valor de \(\hat{\lambda}_{EMV}\).
 
 \begin{table}[!h]
 
-\caption{\label{tab:unnamed-chunk-7}Tabela do Poder do Teste $\lambda \in[2,2;4]$}
+\caption{\label{tab:unnamed-chunk-9}Tabela do Poder do Teste $\lambda \in[2,2;4]$}
 \centering
 \begin{tabular}[t]{lccccc}
 \toprule
@@ -401,5 +666,28 @@ Amostra n = 100 & 1.00 & 1.00 & 1 & 1 & 1\\
 \bottomrule
 \end{tabular}
 \end{table}
+\newpage
+
+\hypertarget{conclusuxe3o}{%
+\section{Conclusão}\label{conclusuxe3o}}
+
+Após a compreensão e resolução, houve um notório aumento em relação a
+percepção dos métodos de amostragem e geração de amostras por método
+Monte Carlo pelos elaboradores deste trabalho, concluindo que o mesmo
+foi fundamental para a melhora da visualização e entendimento dos
+resultados esperados de cada processo formulado durante a disciplina. Ao
+longo do trabalho, percebemos que poderíamos resolver as questões de
+diversas formas, como no caso da estimação, por exemplo. Pelo conteúdo
+da disciplina ser bem amplo, podemos associar a diversas outras
+disciplinas.
+
+\newpage
+
+\hypertarget{apoio}{%
+\section{Apoio}\label{apoio}}
+
+Para elaborar o trabalho, o número 2021 foi selecionado como seed e,
+para os exercícios 2 e 3, 10000 foi a quantidade de amostras geradas
+para as estimações.
 
 \end{document}
