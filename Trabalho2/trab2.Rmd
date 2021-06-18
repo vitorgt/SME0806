@@ -1,0 +1,171 @@
+---
+title: "Trabalho 2 - SME0806 - Estatística Computacional"
+subtitle: "Universidade de São Paulo"
+author:
+  - "Diego G. de Paulo (10857040)"
+  - "Bruno H.da S Justino (11031621)"
+  - "Douglas S. Souza (10733820)"
+  - "Caio H. M. Schiavo (11810602)"
+  - "Vitor Gratiere Torres (10284952)"
+date: "18/06/2020"
+output:
+  pdf_document:
+    df_print: kable
+    highlight: tango
+    latex_engine: xelatex
+  html_document:
+    highlight: textmate
+header-includes:
+  - \usepackage{enumerate}
+  - \usepackage{hyperref}
+fontsize: 11pt
+---
+
+\newpage
+\tableofcontents
+\newpage
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(xtable)
+library(tinytex)
+library(readxl)
+library(psych)
+options(tinytex.verbose = TRUE)
+options(OutDec = ",")
+```
+
+# Introdução
+
+# Exercício 1
+
+## Motivação
+
+&nbsp;
+
+Neste exercício a cargo dos alunos que realizam este trabalho, realizar estimativas pontuais e intervalares do coeficiente Gini, um indicador de desigualdade em relação ao PIB per Capita. Este coeficiente é definido por:
+
+$$G = \frac{\sum_{i=1}^n\sum_{i=1}^n |x_i-x_j|}{2n^2\mu}$$
+
+## Metodologia
+
+&nbsp;
+
+Para solução, será utilizado método bootstrap para amostrar valores $x_1^*, ..., x_n^*$ provenientes, com reposição dos valores observados da variável Pib per Capita. Após a obtenção desses valores será aplicada a função descrita acima para o Coeficiente de Gini a fim de obter uma estimação pontual e um intervalo de confiança bootstrap (neste caso de 95% de confiança).
+
+## Resolução
+
+&nbsp;
+
+Para obter a estimação pontual será utilizado o seguinte resultado (baseado numa aproximação em simulações de Monte Carlo com B amostras bootstrap):
+
+$$\frac{1}{B}\sum_{b=1}^B g(x_{b,1}^*, ..., x_{n,1}^*)$$
+Já na obtenção das estiamativas intervalares serão selecionados os quantis 2,5 e 97,5% do vetor de resultados gerados para o coeficiente.
+
+\newpage
+
+```{r, echo = T, include=FALSE}
+set.seed(31)
+df <- read_xlsx("./tab_pib_2018-10-1.xlsx")
+df1 <- df[-c(1:10),]
+df1 <- na.omit(df1)
+df_fim <- setNames(df1, c("Cidade", "Agro", "Ind",
+                 "Adm",
+                 "TotalSem",
+                 "Total", "Impostos", "PIB",
+                 "PIBCapita"))
+df_fim[, c(2:9)] <- sapply(df_fim[, c(2:9)], as.numeric)
+```
+
+```{r, echo = T}
+gini <- function(x, y) {
+  z <- abs(x - y)
+}
+
+ex_1 <- function(df, r) {
+
+  g <- c()
+  n <- nrow(df)
+
+  for (i in 1:r) {
+    am <- sample(as.matrix(df[, 9]), n, replace = T)
+    matriz <- outer(am, am, gini)
+    mu <- mean(am)
+    g[i] <- sum(matriz) / (2 * (n ^ 2) * mu)
+  }
+
+  cat("Estimativa pontual para o Coeficiente Gini = ", round(mean(g), 4),
+      "com", r, "repetições", "\n")
+
+  cat("Intervalo de 95% para o Coeficiente Gini:", "[",
+      round(quantile(g, .025), 4), ";", round(quantile(g, .975), 4),
+      "]", "com", r, "\nrepetições", "\n")
+}
+
+ex_1(df = df_fim, r = 500)
+ex_1(df = df_fim, r = 1000)
+ex_1(df = df_fim, r = 3000)
+```
+
+Como foi notado, o coeficiente teve um resultado apresentado próximo a 0,3, apresentando um índice de desigualdade relativamente baixo entre as cidades do estado em relação ao PIB per Capita.
+
+\newpage
+
+# Exercício 2
+
+## Motivação
+
+&nbsp;
+
+Para o exercício os resultados procurados são, também, uma estimação pontual e um intervalo de confiança para a associação entre as duas variáveis, que se enquadram em valor agregado, mais associadas entre si.
+
+## Metodologia
+
+&nbsp;
+
+Para a avaliação desta associação foi selecionado o Coeficiente de Correlação de Spearman, apresentado em forma de mapa de calor conforme segue.
+
+## Resolução
+
+&nbsp;
+
+```{r, echo=TRUE}
+corr_mat <- cor(df_fim[, c(2:6)], method = "s")
+corPlot(corr_mat, cex = 1.2)
+title("Mapa de Calor dos Coeficientes Correlações de Spearman")
+```
+
+Pelo o resultado obtido, as variáveis selecionadas foram Total (exclusive Administração Pública) e Total Geral. Para a obtenção dos resultados de interesse deste exercício, um método semelhante ao método do exercício anterior foi utilizado com a diferença de que neste caso as amostras das váriaves selecionadas foram amostradas de forma pareada para a obtenção da medida de associação (vale lembrar que o Coeficiente de Correlação de Spearman leva em conta os ranks das observações para a obtenção do resultado).
+
+```{r, echo=TRUE}
+ex_2 <- function(df, r) {
+
+  g <- c()
+  n <- nrow(df)
+
+  for (i in 1:r) {
+    index <- sample(c(1:n), n, replace = T)
+    am1 <- df$TotalSem[index]
+    am2 <- df$Total[index]
+    g[i] <- cor(x = am1, y = am2, method = "s")
+  }
+
+  cat("Estimativa pontual para o Coeficiente de Correlação de Spearman = ",
+      round(mean(g), 4), "com\n", r, "repetições", "\n")
+
+  cat("Intervalo de 95% para o Coeficiente de Correlação de Spearman:", "\n[",
+      round(quantile(g, .025), 4), ";", round(quantile(g, .975), 4),
+      "]", "com", r, "repetições", "\n")
+}
+
+ex_2(df = df_fim, r = 500)
+ex_2(df = df_fim, r = 1000)
+ex_2(df = df_fim, r = 3000)
+
+```
+
+Como é observado, de acordo com os resultados obtidos, a correlação está bem próxima de 1, que vai bem de encontro ao resultado visualizado no mapa de calor, ou seja, já era um resultado esperado.
+
+# Conclusão
+
+Após a realização deste trabalho, o grupo de alunos responsável pode fixar o conteúdo de reamostragem com grande enfoque no método boostrap, principalmente pela utilização de dados reais obtidos a partir de um banco de dados obtidos disponibilizado pelo governo.

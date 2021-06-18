@@ -1,0 +1,355 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[11pt,]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Trabalho 2 - SME0806 - Estatística Computacional},
+            pdfauthor={Diego G. de Paulo (10857040); Bruno H.da S Justino (11031621); Douglas S. Souza (10733820); Caio H. M. Schiavo (11810602); Vitor Gratiere Torres (10284952)},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+
+\title{Trabalho 2 - SME0806 - Estatística Computacional}
+\providecommand{\subtitle}[1]{}
+\subtitle{Universidade de São Paulo}
+\author{Diego G. de Paulo (10857040) \and Bruno H.da S Justino (11031621) \and Douglas S. Souza (10733820) \and Caio H. M. Schiavo (11810602) \and Vitor Gratiere Torres (10284952)}
+\date{18/06/2020}
+
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\hypertarget{introduuxe7uxe3o}{%
+\section{Introdução}\label{introduuxe7uxe3o}}
+
+\hypertarget{exercuxedcio-1}{%
+\section{Exercício 1}\label{exercuxedcio-1}}
+
+\hypertarget{motivauxe7uxe3o}{%
+\subsection{Motivação}\label{motivauxe7uxe3o}}
+
+~
+
+Neste exercício a cargo dos alunos que realizam este trabalho, realizar
+estimativas pontuais e intervalares do coeficiente Gini, um indicador de
+desigualdade em relação ao PIB per Capita. Este coeficiente é definido
+por:
+
+\[G = \frac{\sum_{i=1}^n\sum_{i=1}^n |x_i-x_j|}{2n^2\mu}\]
+
+\hypertarget{metodologia}{%
+\subsection{Metodologia}\label{metodologia}}
+
+~
+
+Para solução, será utilizado método bootstrap para amostrar valores
+\(x_1^*, ..., x_n^*\) provenientes, com reposição dos valores observados
+da variável Pib per Capita. Após a obtenção desses valores será aplicada
+a função descrita acima para o Coeficiente de Gini a fim de obter uma
+estimação pontual e um intervalo de confiança bootstrap (neste caso de
+95\% de confiança).
+
+\hypertarget{resoluuxe7uxe3o}{%
+\subsection{Resolução}\label{resoluuxe7uxe3o}}
+
+~
+
+Para obter a estimação pontual será utilizado o seguinte resultado
+(baseado numa aproximação em simulações de Monte Carlo com B amostras
+bootstrap):
+
+\[\frac{1}{B}\sum_{b=1}^B g(x_{b,1}^*, ..., x_{n,1}^*)\] Já na obtenção
+das estiamativas intervalares serão selecionados os quantis 2,5 e 97,5\%
+do vetor de resultados gerados para o coeficiente.
+
+\newpage
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gini <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y) \{}
+\NormalTok{  z <-}\StringTok{ }\KeywordTok{abs}\NormalTok{(x }\OperatorTok{-}\StringTok{ }\NormalTok{y)}
+\NormalTok{\}}
+
+\NormalTok{ex_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df, r) \{}
+
+\NormalTok{  g <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\NormalTok{  n <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(df)}
+
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{r) \{}
+\NormalTok{    am <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(df[, }\DecValTok{9}\NormalTok{]), n, }\DataTypeTok{replace =}\NormalTok{ T)}
+\NormalTok{    matriz <-}\StringTok{ }\KeywordTok{outer}\NormalTok{(am, am, gini)}
+\NormalTok{    mu <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(am)}
+\NormalTok{    g[i] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(matriz) }\OperatorTok{/}\StringTok{ }\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{(n }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{mu)}
+\NormalTok{  \}}
+
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"Estimativa pontual para o Coeficiente Gini = "}\NormalTok{, }\KeywordTok{round}\NormalTok{(}\KeywordTok{mean}\NormalTok{(g), }\DecValTok{4}\NormalTok{),}
+      \StringTok{"com"}\NormalTok{, r, }\StringTok{"repetições"}\NormalTok{, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"Intervalo de 95% para o Coeficiente Gini:"}\NormalTok{, }\StringTok{"["}\NormalTok{,}
+      \KeywordTok{round}\NormalTok{(}\KeywordTok{quantile}\NormalTok{(g, }\FloatTok{.025}\NormalTok{), }\DecValTok{4}\NormalTok{), }\StringTok{";"}\NormalTok{, }\KeywordTok{round}\NormalTok{(}\KeywordTok{quantile}\NormalTok{(g, }\FloatTok{.975}\NormalTok{), }\DecValTok{4}\NormalTok{),}
+      \StringTok{"]"}\NormalTok{, }\StringTok{"com"}\NormalTok{, r, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{repetições"}\NormalTok{, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\}}
+
+\KeywordTok{ex_1}\NormalTok{(}\DataTypeTok{df =}\NormalTok{ df_fim, }\DataTypeTok{r =} \DecValTok{500}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Estimativa pontual para o Coeficiente Gini =  0,3254 com 500 repetições
+## Intervalo de 95% para o Coeficiente Gini: [ 0,2967 ; 0,3566 ] com 500
+## repetições
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ex_1}\NormalTok{(}\DataTypeTok{df =}\NormalTok{ df_fim, }\DataTypeTok{r =} \DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Estimativa pontual para o Coeficiente Gini =  0,3259 com 1000 repetições
+## Intervalo de 95% para o Coeficiente Gini: [ 0,2948 ; 0,3578 ] com 1000
+## repetições
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ex_1}\NormalTok{(}\DataTypeTok{df =}\NormalTok{ df_fim, }\DataTypeTok{r =} \DecValTok{3000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Estimativa pontual para o Coeficiente Gini =  0,3257 com 3000 repetições
+## Intervalo de 95% para o Coeficiente Gini: [ 0,2942 ; 0,3584 ] com 3000
+## repetições
+\end{verbatim}
+
+Como foi notado, o coeficiente teve um resultado apresentado próximo a
+0,3, apresentando um índice de desigualdade relativamente baixo entre as
+cidades do estado em relação ao PIB per Capita.
+
+\newpage
+
+\hypertarget{exercuxedcio-2}{%
+\section{Exercício 2}\label{exercuxedcio-2}}
+
+\hypertarget{motivauxe7uxe3o-1}{%
+\subsection{Motivação}\label{motivauxe7uxe3o-1}}
+
+~
+
+Para o exercício os resultados procurados são, também, uma estimação
+pontual e um intervalo de confiança para a associação entre as duas
+variáveis, que se enquadram em valor agregado, mais associadas entre si.
+
+\hypertarget{metodologia-1}{%
+\subsection{Metodologia}\label{metodologia-1}}
+
+~
+
+Para a avaliação desta associação foi selecionado o Coeficiente de
+Correlação de Spearman, apresentado em forma de mapa de calor conforme
+segue.
+
+\hypertarget{resoluuxe7uxe3o-1}{%
+\subsection{Resolução}\label{resoluuxe7uxe3o-1}}
+
+~
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corr_mat <-}\StringTok{ }\KeywordTok{cor}\NormalTok{(df_fim[, }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\OperatorTok{:}\DecValTok{6}\NormalTok{)], }\DataTypeTok{method =} \StringTok{"s"}\NormalTok{)}
+\KeywordTok{corPlot}\NormalTok{(corr_mat, }\DataTypeTok{cex =} \FloatTok{1.2}\NormalTok{)}
+\KeywordTok{title}\NormalTok{(}\StringTok{"Mapa de Calor dos Coeficientes Correlações de Spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{trab2_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+Pelo o resultado obtido, as variáveis selecionadas foram Total
+(exclusive Administração Pública) e Total Geral. Para a obtenção dos
+resultados de interesse deste exercício, um método semelhante ao método
+do exercício anterior foi utilizado com a diferença de que neste caso as
+amostras das váriaves selecionadas foram amostradas de forma pareada
+para a obtenção da medida de associação (vale lembrar que o Coeficiente
+de Correlação de Spearman leva em conta os ranks das observações para a
+obtenção do resultado).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ex_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df, r) \{}
+
+\NormalTok{  g <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\NormalTok{  n <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(df)}
+
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{r) \{}
+\NormalTok{    index <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n), n, }\DataTypeTok{replace =}\NormalTok{ T)}
+\NormalTok{    am1 <-}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{TotalSem[index]}
+\NormalTok{    am2 <-}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{Total[index]}
+\NormalTok{    g[i] <-}\StringTok{ }\KeywordTok{cor}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ am1, }\DataTypeTok{y =}\NormalTok{ am2, }\DataTypeTok{method =} \StringTok{"s"}\NormalTok{)}
+\NormalTok{  \}}
+
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"Estimativa pontual para o Coeficiente de Correlação de Spearman = "}\NormalTok{,}
+      \KeywordTok{round}\NormalTok{(}\KeywordTok{mean}\NormalTok{(g), }\DecValTok{4}\NormalTok{), }\StringTok{"com}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, r, }\StringTok{"repetições"}\NormalTok{, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+
+  \KeywordTok{cat}\NormalTok{(}\StringTok{"Intervalo de 95% para o Coeficiente de Correlação de Spearman:"}\NormalTok{, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{["}\NormalTok{,}
+      \KeywordTok{round}\NormalTok{(}\KeywordTok{quantile}\NormalTok{(g, }\FloatTok{.025}\NormalTok{), }\DecValTok{4}\NormalTok{), }\StringTok{";"}\NormalTok{, }\KeywordTok{round}\NormalTok{(}\KeywordTok{quantile}\NormalTok{(g, }\FloatTok{.975}\NormalTok{), }\DecValTok{4}\NormalTok{),}
+      \StringTok{"]"}\NormalTok{, }\StringTok{"com"}\NormalTok{, r, }\StringTok{"repetições"}\NormalTok{, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\}}
+
+\KeywordTok{ex_2}\NormalTok{(}\DataTypeTok{df =}\NormalTok{ df_fim, }\DataTypeTok{r =} \DecValTok{500}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Estimativa pontual para o Coeficiente de Correlação de Spearman =  0,9873 com
+##  500 repetições
+## Intervalo de 95% para o Coeficiente de Correlação de Spearman:
+## [ 0,9837 ; 0,9902 ] com 500 repetições
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ex_2}\NormalTok{(}\DataTypeTok{df =}\NormalTok{ df_fim, }\DataTypeTok{r =} \DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Estimativa pontual para o Coeficiente de Correlação de Spearman =  0,9873 com
+##  1000 repetições
+## Intervalo de 95% para o Coeficiente de Correlação de Spearman:
+## [ 0,9836 ; 0,9901 ] com 1000 repetições
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ex_2}\NormalTok{(}\DataTypeTok{df =}\NormalTok{ df_fim, }\DataTypeTok{r =} \DecValTok{3000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Estimativa pontual para o Coeficiente de Correlação de Spearman =  0,9873 com
+##  3000 repetições
+## Intervalo de 95% para o Coeficiente de Correlação de Spearman:
+## [ 0,9837 ; 0,9901 ] com 3000 repetições
+\end{verbatim}
+
+Como é observado, de acordo com os resultados obtidos, a correlação está
+bem próxima de 1, que vai bem de encontro ao resultado visualizado no
+mapa de calor, ou seja, já era um resultado esperado.
+
+\hypertarget{conclusuxe3o}{%
+\section{Conclusão}\label{conclusuxe3o}}
+
+Após a realização deste trabalho, o grupo de alunos responsável pode
+fixar o conteúdo de reamostragem com grande enfoque no método boostrap,
+principalmente pela utilização de dados reais obtidos a partir de um
+banco de dados obtidos disponibilizado pelo governo.
+
+\end{document}
