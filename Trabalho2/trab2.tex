@@ -128,6 +128,23 @@
 \hypertarget{introduuxe7uxe3o}{%
 \section{Introdução}\label{introduuxe7uxe3o}}
 
+Este trabalho tem como principal objetivo mostrar estimativas pontuais e
+intervalares para o coeficiente de Gini que é um dos principais índices
+de desigualdade utilizados, como também para as variáveis associadas. O
+índice de Gini é uma medida de desigualdade comumente utilizada para
+calcular a desigualdade de distribuição de renda, mas pode ser usada
+também para qualquer distribuição, como concentração de terra e riqueza.
+Desenvolvida pelo estatístico italiano Corrado Gini e publicada no
+documento ``Variabilità e Mutabilità'' em 1912, a medida consiste em um
+número entre 0 e 1, onde 0 corresponde à completa igualdade de renda e 1
+corresponde à completa desigualdade. Para a estimação, aplicaremos o
+método de bootstrap, baseado em um grande número de reamostras. Os
+métodos de reamostragem permitem quantificar incertezas calculando erros
+padrões e intervalos de confiança, bem como realizar testes de
+significância. Eles requerem menos suposições e geralmente fornecem
+respostas mais precisas do que os métodos tradicionais
+(MOORE,McCABE,DUCKWORTH,SCLOVE,1996).
+
 \hypertarget{exercuxedcio-1}{%
 \section{Exercício 1}\label{exercuxedcio-1}}
 
@@ -164,9 +181,10 @@ Para obter a estimação pontual será utilizado o seguinte resultado
 (baseado numa aproximação em simulações de Monte Carlo com B amostras
 bootstrap):
 
-\[\frac{1}{B}\sum_{b=1}^B g(x_{b,1}^*, ..., x_{n,1}^*)\] Já na obtenção
-das estiamativas intervalares serão selecionados os quantis 2,5 e 97,5\%
-do vetor de resultados gerados para o coeficiente.
+\[\frac{1}{B}\sum_{b=1}^B g(x_{b,1}^*, ..., x_{n,1}^*)\]
+
+Já na obtenção das estimativas intervalares serão selecionados os
+quantis 2,5 e 97,5\% do vetor de resultados gerados para o coeficiente.
 
 \newpage
 
@@ -341,7 +359,7 @@ obtenção do resultado).
 \end{verbatim}
 
 Como é observado, de acordo com os resultados obtidos, a correlação está
-bem próxima de 1, que vai bem de encontro ao resultado visualizado no
+bem próxima de 1, que vai bem ao encontro do resultado visualizado no
 mapa de calor, ou seja, já era um resultado esperado.
 
 \hypertarget{conclusuxe3o}{%
@@ -351,5 +369,21 @@ Após a realização deste trabalho, o grupo de alunos responsável pode
 fixar o conteúdo de reamostragem com grande enfoque no método boostrap,
 principalmente pela utilização de dados reais obtidos a partir de um
 banco de dados obtidos disponibilizado pelo governo.
+
+\hypertarget{referuxeancias}{%
+\section{Referências}\label{referuxeancias}}
+
+Notas de Aula de Estatística Computacional - Professor Dr.~Mário de
+Castro
+
+LETTIERI, M.; PAES, N. L. Medidas de Pobreza e Desigualdade: Uma Analise
+Teórica dos Principais Índices. Fortaleza, 2006. (Laboratório de Estudos
+da Pobreza (LEP)
+
+Site: mathworld.wolfram.com - GiniCoefficient
+
+Site: www.ipece.ce.gov.br - Entendendo Indice De Gini
+
+Site: www.seade.gov.br - Dados PIB(2018)
 
 \end{document}
